@@ -33,11 +33,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
         requireSomePermission();
         startHttpServer();
-
-
     }
 
     private void startHttpServer() {
@@ -46,13 +43,11 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
             if (!mHttpServer.isAlive()) {
                 mHttpServer.start();
             }
-
             String localIp = IPUtils.getLocalIp(ServerApplication.getContext());
             mAddressTv.setText(localIp);
             Timber.d("服务器连接地址：http://" + localIp);
             Timber.d("Http server started");
         } catch (IOException e) {
-            e.printStackTrace();
             Timber.d("Http server could not start . e. cause:" + e.getCause());
         }
     }
