@@ -29,20 +29,15 @@ public class MimeTypeUtil {
 
     public static boolean isImageMimeType(String fileName) {
         boolean isImage;
-        String mimetype;
-        if (fileName.contains(".gif")) {
-            mimetype = "image/gif";
+        if (fileName.endsWith(".gif")) {
             isImage = true;
-        } else if (fileName.contains(".jpeg") || fileName.contains(".jpg")) {
-            mimetype = "image/jpeg";
+        } else if (fileName.endsWith(".jpeg") || fileName.endsWith(".jpg")) {
             isImage = true;
-        } else if (fileName.contains(".png")) {
-            mimetype = "image/png";
+        } else if (fileName.endsWith(".png")) {
             isImage = true;
         } else {
             isImage = false;
         }
-
         return isImage;
     }
 

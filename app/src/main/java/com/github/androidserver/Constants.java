@@ -10,6 +10,7 @@ public class Constants {
     public static class Code {
         public static final int PORT = 8080;
         public static final int SIZE = 20;
+        public static final int MAX_SIZE = 100;
     }
 
     public static class Key {

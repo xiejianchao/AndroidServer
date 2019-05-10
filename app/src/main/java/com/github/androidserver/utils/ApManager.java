@@ -8,33 +8,11 @@ import android.util.Log;
 
 import java.lang.reflect.Method;
 
+import timber.log.Timber;
+
 import static android.content.Context.WIFI_SERVICE;
 
 public class ApManager {
-
-    private static final String TAG = "ApManager";
-
-    /**
-     * 判断Ap热点是否开启
-     *
-     * @param context 上下文
-     * @return 开关
-     */
-    public static boolean isApOn(Context context) {
-        WifiManager wifimanager = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
-        if (wifimanager == null) {
-            return false;
-        }
-        try {
-            @SuppressLint("PrivateApi")
-            Method method = wifimanager.getClass().getDeclaredMethod("isWifiApEnabled");
-            method.setAccessible(true);
-            return (Boolean) method.invoke(wifimanager);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
 
     /**
      * 开启Ap热点
@@ -58,6 +36,28 @@ public class ApManager {
             method = wifimanager.getClass().getMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
             boolean enable = (boolean) method.invoke(wifimanager, createConfiguration(ssid, password), true);
             return enable;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    /**
+     * 判断Ap热点是否开启
+     *
+     * @param context 上下文
+     * @return 开关
+     */
+    public static boolean isApOn(Context context) {
+        WifiManager wifimanager = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
+        if (wifimanager == null) {
+            return false;
+        }
+        try {
+            @SuppressLint("PrivateApi")
+            Method method = wifimanager.getClass().getDeclaredMethod("isWifiApEnabled");
+            method.setAccessible(true);
+            return (Boolean) method.invoke(wifimanager);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,7 +91,7 @@ public class ApManager {
     public static String[] getApSSIDAndPwd(Context context) {
         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
         if (wifiManager == null) {
-            Log.e(TAG, "wifiManager == null");
+            Timber.d("wifiManager == null");
             return null;
         }
         try {
@@ -103,7 +103,7 @@ public class ApManager {
             params[1] = wifiConfiguration.preSharedKey;
             return params;
         } catch (Exception e) {
-            Log.e(TAG, e.toString());
+            Timber.d(e.toString());
             return null;
         }
     }

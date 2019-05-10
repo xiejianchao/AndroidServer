@@ -32,7 +32,8 @@ public class RequestManager {
     MediaServiceImpl mMediaService;
 
     @Inject
-    public RequestManager() {}
+    public RequestManager() {
+    }
 
     public Response handlerResponse(IHTTPSession session) {
         String uri = session.getUri();
@@ -44,10 +45,10 @@ public class RequestManager {
             File file = new File(uri);
             if (file.exists()) {
                 //文件请求
-                Timber.d("请求的文件：%s" ,file.getAbsolutePath());
+                Timber.d("请求的文件：%s", file.getAbsolutePath());
                 if (MimeTypeUtil.isImageMimeType(file.getName())) {
                     return mMediaService.createImageService().responseImage(uri);
-                } else if (MimeTypeUtil.isVideoMimeType(file.getName())){
+                } else if (MimeTypeUtil.isVideoMimeType(file.getName())) {
                     return mMediaService.createVideoService().responseVideo(uri);
                 } else {
                     return responseNotFound();
@@ -85,9 +86,13 @@ public class RequestManager {
         List<String> pageSizes = parameters.get(Constants.Key.PAGE_SIZE);
         int pageSize = 0;
         if (pageSizes != null && !pageSizes.isEmpty()) {
-            pageSize = Integer.valueOf(pageSizes.get(0));
+            int reqSize = Integer.valueOf(pageSizes.get(0));
+            if (reqSize >= Constants.Code.MAX_SIZE) {
+               pageSize = Constants.Code.MAX_SIZE;
+            } else {
+                pageSize = reqSize;
+            }
         }
-
         return pageSize;
     }
 
@@ -96,7 +101,12 @@ public class RequestManager {
         List<String> pageIndexs = parameters.get(Constants.Key.PAGE_INDEX);
         int pageIndex = 0;
         if (pageIndexs != null && !pageIndexs.isEmpty()) {
-            pageIndex = Integer.valueOf(pageIndexs.get(0));
+            int reqIndex = Integer.valueOf(pageIndexs.get(0));
+            if (reqIndex < 0) {
+                pageIndex = 0;
+            } else {
+                pageIndex = reqIndex;
+            }
         }
 
         return pageIndex;
