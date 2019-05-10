@@ -28,7 +28,6 @@ public class RequestManager {
 
     @Inject
     Context mContext;
-
     @Inject
     MediaServiceImpl mMediaService;
 
@@ -109,16 +108,16 @@ public class RequestManager {
         builder.append("<!DOCTYPER html><html><body>");
         builder.append("<h3>只显示手机最新的20张照片</h3>");
         builder.append("<ol>");
-        List<MediaInfo> imagelist = MediaHelper.getImageList(mContext, 0, 20);
+        List<MediaInfo> imageList = MediaHelper.getImageList(mContext, 0, 20);
 
-        for (int i = 0, len = imagelist.size(); i < len; i++) {
-            File file = new File(imagelist.get(i).localPath);
+        for (int i = 0, len = imageList.size(); i < len; i++) {
+            File file = new File(imageList.get(i).localPath);
             if (file.exists()) {
                 builder.append("<li> <a href=\"" + file.getPath() + "\">" + file.getName() +
                         "</a></li>");
             }
         }
-        builder.append("<li>默认分享20张照片：  " + imagelist.size() + "</li>");
+        builder.append("<li>默认分享20张照片：  " + imageList.size() + "</li>");
         builder.append("</ol>");
         builder.append("</body></html>\n");
         return newFixedLengthResponse(String.valueOf(builder));

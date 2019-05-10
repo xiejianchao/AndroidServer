@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-
 import com.github.androidserver.model.MediaInfo;
 
 import java.io.File;
