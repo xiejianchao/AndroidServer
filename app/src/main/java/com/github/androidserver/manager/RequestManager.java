@@ -3,7 +3,7 @@ package com.github.androidserver.manager;
 import android.content.Context;
 
 import com.github.androidserver.Constants;
-import com.github.androidserver.MediaHelper;
+import com.github.androidserver.utils.MediaHelper;
 import com.github.androidserver.model.MediaInfo;
 import com.github.androidserver.service.MediaServiceImpl;
 import com.github.androidserver.utils.MimeTypeUtil;

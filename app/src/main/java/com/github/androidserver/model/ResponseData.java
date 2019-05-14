@@ -1,11 +1,20 @@
 package com.github.androidserver.model;
 
-public class ResponseData<T> {
+public class ResponseData<T> extends BaseJsonModel{
 
+    public String type;
     public int code;
-    public int message;
+    public String message;
     public long time;
     public T data;
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 
     public int getCode() {
         return code;
@@ -15,11 +24,11 @@ public class ResponseData<T> {
         this.code = code;
     }
 
-    public int getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(int message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

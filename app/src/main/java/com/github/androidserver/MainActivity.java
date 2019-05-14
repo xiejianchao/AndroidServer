@@ -21,7 +21,7 @@ import pub.devrel.easypermissions.AfterPermissionGranted;
 import pub.devrel.easypermissions.EasyPermissions;
 import timber.log.Timber;
 
-public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks{
+public class MainActivity extends AppCompatActivity implements EasyPermissions.PermissionCallbacks {
 
     @BindView(R.id.tv_server_address)
     TextView mAddressTv;
@@ -108,6 +108,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     /**
      * 权限申成功
+     *
      * @param i
      * @param list
      */
@@ -118,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     /**
      * 权限申请失败
+     *
      * @param i
      * @param list
      */

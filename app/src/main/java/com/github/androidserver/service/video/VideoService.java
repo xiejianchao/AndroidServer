@@ -1,6 +1,6 @@
 package com.github.androidserver.service.video;
 
-import com.github.androidserver.MediaHelper;
+import com.github.androidserver.utils.MediaHelper;
 import com.github.androidserver.model.MediaInfo;
 import com.github.androidserver.model.VideoInfo;
 import com.github.androidserver.service.BaseMedia;

@@ -1,7 +1,7 @@
 package com.github.androidserver.service.image;
 
-import com.github.androidserver.MediaHelper;
 import com.github.androidserver.model.MediaInfo;
+import com.github.androidserver.utils.MediaHelper;
 import com.github.androidserver.utils.MimeTypeUtil;
 import com.google.gson.Gson;
 

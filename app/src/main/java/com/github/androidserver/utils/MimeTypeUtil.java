@@ -7,19 +7,19 @@ public class MimeTypeUtil {
     public static String getMimeType(String uri) {
         String filename = uri.substring(1);
         String mimetype = "text/html";
-        if (filename.contains(".html") || filename.contains(".htm")) {
+        if (filename.endsWith(".html") || filename.endsWith(".htm")) {
             mimetype = "text/html";
-        } else if (filename.contains(".js")) {
+        } else if (filename.endsWith(".js")) {
             mimetype = "text/javascript";
-        } else if (filename.contains(".css")) {
+        } else if (filename.endsWith(".css")) {
             mimetype = "text/css";
-        } else if (filename.contains(".gif")) {
+        } else if (filename.endsWith(".gif")) {
             mimetype = "text/gif";
-        } else if (filename.contains(".jpeg") || filename.contains(".jpg")) {
+        } else if (filename.endsWith(".jpeg") || filename.endsWith(".jpg")) {
             mimetype = "image/jpeg";
-        } else if (filename.contains(".png")) {
+        } else if (filename.endsWith(".png")) {
             mimetype = "image/png";
-        }  else if (filename.contains(".mp4")) {
+        }  else if (filename.endsWith(".mp4")) {
             mimetype = "video/mp4";
         } else {
             mimetype = "text/html";

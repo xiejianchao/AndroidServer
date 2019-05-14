@@ -1,6 +1,8 @@
 package com.github.androidserver.model;
 
 
+import android.text.TextUtils;
+
 import com.github.androidserver.utils.StringUtil;
 
 public class MediaInfo extends BaseJsonModel{
@@ -32,11 +34,17 @@ public class MediaInfo extends BaseJsonModel{
     public String name;
     public int duration;
 
+    public MediaInfo() {
+
+    }
+
     public MediaInfo(int id, String localPath, String thumbnail, long size, String name) {
         this.id = id;
         this.localPath = localPath;
         this.url = StringUtil.convertPath2Url(localPath);
-        this.thumbnailUrl = StringUtil.convertPath2Url(thumbnail);
+        if (!TextUtils.isEmpty(thumbnail)) {
+            this.thumbnailUrl = StringUtil.convertPath2Url(thumbnail);
+        }
         this.size = size;
         this.name = name;
     }
