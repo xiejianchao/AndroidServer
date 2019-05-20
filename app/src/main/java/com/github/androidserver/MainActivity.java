@@ -6,7 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.androidserver.server.Server;
-import com.github.androidserver.utils.ApManager;
+import com.github.androidserver.utils.ApUtil;
 import com.github.androidserver.utils.IPUtils;
 
 import java.io.IOException;
@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     @OnClick(R.id.btn_open_ap)
     public void openApClick() {
-        boolean enable = ApManager.openAp(this, "futurus-wifi", "12345678");
+        boolean enable = ApUtil.openAp(this, "futurus-wifi", "12345678");
         Timber.d("获取热点成功");
         if (enable) {
             Toast.makeText(this, "获取热点成功", Toast.LENGTH_SHORT).show();

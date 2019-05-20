@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiManager;
-import android.util.Log;
 
 import java.lang.reflect.Method;
 
@@ -12,15 +11,11 @@ import timber.log.Timber;
 
 import static android.content.Context.WIFI_SERVICE;
 
-public class ApManager {
+public class ApUtil {
 
     /**
      * 开启Ap热点
      *
-     * @param ssid     SSID
-     * @param password 密码
-     * @param context  上下文
-     * @return 是否成功
      */
     public static boolean openAp(Context context, String ssid, String password) {
         WifiManager wifimanager = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -45,8 +40,6 @@ public class ApManager {
     /**
      * 判断Ap热点是否开启
      *
-     * @param context 上下文
-     * @return 开关
      */
     public static boolean isApOn(Context context) {
         WifiManager wifimanager = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -64,11 +57,6 @@ public class ApManager {
         return false;
     }
 
-    /**
-     * 关闭Ap热点
-     *
-     * @param context 上下文
-     */
     public static void closeAp(Context context) {
         WifiManager wifimanager = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
         if (wifimanager == null) {
@@ -85,8 +73,6 @@ public class ApManager {
     /**
      * 获取设备曾开启过的Ap热点的名称和密码（无关设备现在是否有开启Ap）
      *
-     * @param context 上下文
-     * @return Ap热点名、Ap热点密码（密码可能为空）
      */
     public static String[] getApSSIDAndPwd(Context context) {
         WifiManager wifiManager = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
@@ -111,13 +97,11 @@ public class ApManager {
     /**
      * 配置Ap热点信息
      *
-     * @param ssid     Ap热点SSID
-     * @param password Ap热点密码
-     * @return Ap热点信息
      */
     private static WifiConfiguration createConfiguration(String ssid, String password) {
         WifiConfiguration config = new WifiConfiguration();
         config.SSID = ssid;
+        config.hiddenSSID = false;
         config.preSharedKey = password;
         config.status = WifiConfiguration.Status.ENABLED;
         config.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.WPA_PSK);
