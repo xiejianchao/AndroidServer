@@ -26,19 +26,23 @@ public class MediaHelper {
      * @return
      */
     public static List<MediaInfo> getImageList(Context context, int pageIndex, int pageSize) {
+        long start = System.currentTimeMillis();
         List<MediaInfo> mediaList = new ArrayList<>();
         HashMap<String, List<MediaInfo>> photoFolder = new HashMap<>();
         Cursor mCursor = getImageCursor(context, pageIndex, pageSize);
         if (mCursor != null) {
             while (mCursor.moveToNext()) {
-                MediaInfo mediaInfo = createImageModule(mCursor);
+                MediaInfo mediaInfo = createImageModule(context, mCursor);
                 mediaList.add(mediaInfo);
                 saveFolderInfo(photoFolder, mediaInfo);
             }
             mCursor.close();
         }
+        long cost = System.currentTimeMillis() - start;
+        Timber.d("获取所有图片耗时：" + cost);
         return mediaList;
     }
+
 
     /**
      * 第一次运行比较耗时，并且生成缩略图可能会阻塞，不能直接在主线程调用
@@ -85,11 +89,26 @@ public class MediaHelper {
         checkVideoThumbnail(context, videoId);
         String[] projection = {MediaStore.Video.Thumbnails._ID,
                 MediaStore.Video.Thumbnails.DATA};
-        Cursor cursor = getThumbnailCursor(context, videoId, projection);
+        Cursor cursor = getVideoThumbnailCursor(context, videoId, projection);
         String thumbPath = "";
         while (cursor != null && cursor.moveToNext()) {
             thumbPath = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Thumbnails.DATA));
         }
+        if (cursor != null) {
+            cursor.close();
+        }
+        return thumbPath;
+    }
+
+    private static String getImageThumbnail(Context context, int imageId) {
+        String[] projection = {MediaStore.Images.Thumbnails._ID,
+                MediaStore.Images.Thumbnails.DATA};
+        Cursor cursor = getImageThumbnailCursor(context, imageId, projection);
+        String thumbPath = "";
+        while (cursor != null && cursor.moveToNext()) {
+            thumbPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.DATA));
+        }
+
         if (cursor != null) {
             cursor.close();
         }
@@ -110,12 +129,21 @@ public class MediaHelper {
                 null);
     }
 
-    private static Cursor getThumbnailCursor(Context context, int videoId, String[] projection) {
+    private static Cursor getVideoThumbnailCursor(Context context, int videoId, String[] projection) {
         return context.getContentResolver().
                 query(MediaStore.Video.Thumbnails.EXTERNAL_CONTENT_URI,
                         projection,
                         MediaStore.Video.Thumbnails.VIDEO_ID + "=?",
                         new String[]{videoId + ""},
+                        null);
+    }
+
+    private static Cursor getImageThumbnailCursor(Context context, int imageId, String[] projection) {
+        return context.getContentResolver().
+                query(MediaStore.Images.Thumbnails.EXTERNAL_CONTENT_URI,
+                        projection,
+                        MediaStore.Images.Thumbnails.IMAGE_ID + "=?",
+                        new String[]{imageId + ""},
                         null);
     }
 
@@ -156,13 +184,14 @@ public class MediaHelper {
         return new MediaInfo(videoId, path, thumbPath, duration, size, displayName);
     }
 
-    private static MediaInfo createImageModule(Cursor mCursor) {
+    private static MediaInfo createImageModule(Context context, Cursor mCursor) {
         int id = mCursor.getInt(mCursor.getColumnIndex(MediaStore.Images.Media._ID));
         String path = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.DATA));
         String thumbnail = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.MINI_THUMB_MAGIC));
+        String imageThumbnail = getImageThumbnail(context, id);
         int size = mCursor.getInt(mCursor.getColumnIndex(MediaStore.Images.Media.SIZE)) / 1024;
         String displayName = mCursor.getString(mCursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME));
-        return new MediaInfo(id, path, thumbnail, size, displayName);
+        return new MediaInfo(id, path, imageThumbnail, size, displayName);
     }
 
     @NotNull

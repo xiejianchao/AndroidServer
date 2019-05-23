@@ -38,8 +38,8 @@ public class RequestManager {
     public Response handlerResponse(IHTTPSession session) {
         String uri = session.getUri();
         if (Constants.Key.REQUEST_ROOT.equals(uri)
-                || session.getUri().equals("")
-                || uri.contains("favicon.ico")) {
+                || session.getUri().equals("")) {
+            //ignore favicon.ico
             return responseImageHtml(session);
         } else {
             File file = new File(uri);

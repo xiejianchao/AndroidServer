@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     @OnClick(R.id.btn_open_ap)
     public void openApClick() {
-        boolean enable = ApUtil.openAp(this, "futurus-wifi", "12345678");
+        boolean enable = ApUtil.openAp(this, "PilotHotspot", "12345678");
         Timber.d("获取热点成功");
         if (enable) {
             Toast.makeText(this, "获取热点成功", Toast.LENGTH_SHORT).show();
