@@ -35,6 +35,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ServerApplication.getInstance().getServerComponent().inject(this);
         ButterKnife.bind(this);
         requireSomePermission();
         startHttpServer();
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     @OnClick(R.id.btn_open_ap)
     public void openApClick() {
-        boolean enable = ApUtil.openAp(this, "PilotHotspot", "12345678");
+        boolean enable = ApUtil.openAp(this, Constants.Key.WIFI_HOTSPOT_NAME, Constants.Key.WIFI_HOTSPOT_PWD);
         Timber.d("获取热点成功");
         if (enable) {
             Toast.makeText(this, "获取热点成功", Toast.LENGTH_SHORT).show();

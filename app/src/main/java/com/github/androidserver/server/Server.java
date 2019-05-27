@@ -17,7 +17,6 @@ public class Server extends NanoHTTPD {
     @Inject
     public Server() {
         super(Constants.Code.PORT);
-        ServerApplication.getInstance().getServerComponent().inject(this);
     }
 
     @Override
