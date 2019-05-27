@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AndroidServer</string>
+    <string name="hotspot_open_fail">热点开启失败</string>
+    <string name="delete_success">删除成功</string>
 </resources>

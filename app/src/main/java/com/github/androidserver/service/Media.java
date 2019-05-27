@@ -19,4 +19,6 @@ public interface Media<T> {
      */
     T get(int id);
 
+    Response delete(String... ids);
+
 }

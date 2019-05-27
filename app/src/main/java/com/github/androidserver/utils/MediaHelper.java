@@ -19,14 +19,15 @@ import timber.log.Timber;
 public class MediaHelper {
 
     /**
+     * 获取指定页数和数量的设备照片
      * 不能直接运行在主线程
+     *
      * @param context
      * @param pageIndex
      * @param pageSize
      * @return
      */
     public static List<MediaInfo> getImageList(Context context, int pageIndex, int pageSize) {
-        long start = System.currentTimeMillis();
         List<MediaInfo> mediaList = new ArrayList<>();
         HashMap<String, List<MediaInfo>> photoFolder = new HashMap<>();
         Cursor mCursor = getImageCursor(context, pageIndex, pageSize);
@@ -38,14 +39,13 @@ public class MediaHelper {
             }
             mCursor.close();
         }
-        long cost = System.currentTimeMillis() - start;
-        Timber.d("获取所有图片耗时：" + cost);
         return mediaList;
     }
 
-
     /**
+     * 获取指定页数和数量的设备视频
      * 第一次运行比较耗时，并且生成缩略图可能会阻塞，不能直接在主线程调用
+     *
      * @param context
      * @param pageIndex
      * @param pageSize
@@ -64,6 +64,39 @@ public class MediaHelper {
             cursor.close();
         }
         return mediaList;
+    }
+
+    public static int deleteVideo(Context context, List<String> videoIdList) {
+        String whereIdArgs = joinIdArgs(videoIdList);
+        int deleteRow = context.getContentResolver().
+                delete(MediaStore.Video.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Video.Media._ID + "=" + whereIdArgs,
+                        null);
+        Timber.d("预期删除" + videoIdList.size() + "条数据，实际删除" + deleteRow + "条");
+        return deleteRow;
+    }
+
+    public static int deleteImage(Context context, List<String> imageIdList) {
+        String whereIdArgs = joinIdArgs(imageIdList);
+        int deleteRow = context.getContentResolver().
+                delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                        MediaStore.Images.Media._ID + "=" + whereIdArgs,
+                        null);
+        Timber.d("预期删除" + imageIdList.size() + "条数据，实际删除" + deleteRow + "条");
+        return deleteRow;
+    }
+
+    private static String joinIdArgs(List<String> idList) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < idList.size(); i++) {
+            if (i == 0) {
+                sb.append(idList.get(i));
+            } else {
+                sb.append(" OR " + "_id = " + idList.get(i));
+            }
+        }
+        Timber.d("where条件：" + sb);
+        return sb.toString();
     }
 
     /**
@@ -108,7 +141,6 @@ public class MediaHelper {
         while (cursor != null && cursor.moveToNext()) {
             thumbPath = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Thumbnails.DATA));
         }
-
         if (cursor != null) {
             cursor.close();
         }
@@ -122,7 +154,7 @@ public class MediaHelper {
      * @param videoId
      */
     private static void checkVideoThumbnail(Context context, int videoId) {
-        //提前生成缩略图，再获取：http://stackoverflow.com/questions/27903264/how-to-get-the-video-thumbnail-path-and-not-the-bitmap
+        //缩略图相关问题：http://stackoverflow.com/questions/27903264/how-to-get-the-video-thumbnail-path-and-not-the-bitmap
         MediaStore.Video.Thumbnails.getThumbnail(context.getContentResolver(),
                 videoId,
                 MediaStore.Video.Thumbnails.MICRO_KIND,
@@ -213,13 +245,18 @@ public class MediaHelper {
                 MediaStore.Video.Media.DATE_MODIFIED};
     }
 
-    //TODO
-    public static void getImageListOld(Context context) {
-        //selection: 指定查询条件
+    /**
+     * TODO
+     * 查询指定目录的图片|视频
+     *
+     * @param context
+     */
+    public static void getImageList(Context context) {
+        //查询条件
         String selection = MediaStore.Images.Media.DATA + " like '%Camera%'";
-        //设定查询目录
+        //查询目录
         String path = "/storage/emulated/0/DCIM/";
-        //定义selectionArgs：
+        //selectionArgs：
         String[] selectionArgs = {path + "%"};
         String[] projection = getImageProjection();
         Cursor cursor = context.getContentResolver().query(

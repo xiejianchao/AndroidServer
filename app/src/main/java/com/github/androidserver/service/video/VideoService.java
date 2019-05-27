@@ -1,5 +1,8 @@
 package com.github.androidserver.service.video;
 
+import com.github.androidserver.Constants;
+import com.github.androidserver.R;
+import com.github.androidserver.model.ResponseData;
 import com.github.androidserver.utils.MediaHelper;
 import com.github.androidserver.model.MediaInfo;
 import com.github.androidserver.model.VideoInfo;
@@ -9,10 +12,12 @@ import com.google.gson.Gson;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import fi.iki.elonen.NanoHTTPD;
 import fi.iki.elonen.NanoHTTPD.Response;
 import timber.log.Timber;
 
@@ -36,6 +41,19 @@ public class VideoService extends BaseMedia<MediaInfo> implements VideoMedia {
     @Override
     public VideoInfo get(int id) {
         return null;
+    }
+
+    @Override
+    public Response delete(String... ids) {
+        List<String> idList = Arrays.asList(ids);
+        Timber.d("要删除的id：" + idList.toString());
+        int count = MediaHelper.deleteVideo(mContext, idList);
+        Timber.d("删除" + count + "条视频");
+        ResponseData<String> data = new ResponseData<>();
+        data.code = Constants.Code.SUCCESS;
+        data.data = Constants.Key.SUCCESS;
+        data.message = mContext.getString(R.string.delete_success);
+        return newFixedLengthResponse(NanoHTTPD.Response.Status.OK, MimeTypeUtil.MIME_JSON, mGson.toJson(data));
     }
 
     @Override

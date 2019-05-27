@@ -12,6 +12,8 @@ import com.github.androidserver.utils.IPUtils;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import butterknife.BindView;
@@ -26,7 +28,8 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     @BindView(R.id.tv_server_address)
     TextView mAddressTv;
 
-    private Server mHttpServer;
+    @Inject
+    Server mHttpServer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +42,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
     private void startHttpServer() {
         try {
-            mHttpServer = new Server();
             if (!mHttpServer.isAlive()) {
                 mHttpServer.start();
             }
