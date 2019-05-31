@@ -1,6 +1,4 @@
 # AndroidServer
-Create a http server in android device
-
 > 代码开启热点暂只支持5.0，其他版本未做测试，需要先手动打开热点
 
 ### 目前支持的功能
