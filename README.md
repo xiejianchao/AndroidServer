@@ -9,3 +9,9 @@ Create a http server in android device
  - 支持在线观看视频
  - 支持图片接口查询（自定义`pageIndex`和`pageSize`)
  - 支持视频接口查询（自定义`pageIndex`和`pageSize`)
+ 
+### 说明
+- 大部分Android手机的默认热点地址是`192.168.43.1`
+
+### 接口文档
+
