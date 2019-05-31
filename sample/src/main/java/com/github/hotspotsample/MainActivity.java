@@ -67,7 +67,6 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
         };
         if (EasyPermissions.hasPermissions(this, perms)) {
             //有权限
-
         } else {
             //没权限
             EasyPermissions.requestPermissions(this, "需要文件读取权限",
