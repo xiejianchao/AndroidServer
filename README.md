@@ -22,11 +22,35 @@ Create a http server in android device
 |    /image    |   GET   | http://192.168.43.1:8080/image?pageIndex=0&pageSize=20 |
 |    /video    |   GET   | http://192.168.43.1:8080/video?pageIndex=0&pageSize=20 |
 
-###### 接口参数
+##### 接口参数
 |    参数名     | 必选 | 类型  | 说明  |
 | ----------  | ------ | ---------- | ---------- |
 |  pageIndex |  是  | int | 当前第几页，从0页开始|
 |  pageSize |  是  | int | 每页数量|
+
+##### 响应示例
+```
+[
+    {
+        "duration":0,
+        "id":166,
+        "localPath":"/storage/emulated/0/DCIM/7675119_102145282000_2.jpg",
+        "name":"7675119_102145282000_2.jpg",
+        "size":132,
+        "thumbnailUrl":"http://192.168.43.1:8080/storage/emulated/0/.thumbnails/1558496289340.jpg",
+        "url":"http://192.168.43.1:8080/storage/emulated/0/DCIM/7675119_102145282000_2.jpg"
+    },
+    {
+        "duration":0,
+        "id":167,
+        "localPath":"/storage/emulated/0/DCIM/5252423_205856094066_2.jpg",
+        "name":"5252423_205856094066_2.jpg",
+        "size":234,
+        "thumbnailUrl":"http://192.168.43.1:8080/storage/emulated/0/.thumbnails/1558496289340.jpg",
+        "url":"http://192.168.43.1:8080/storage/emulated/0/DCIM/5252423_205856094066_2.jpg"
+    }
+]
+```
 
 #### 删除接口
 |    接口名     | 请求方式 | 示例  |
@@ -34,7 +58,16 @@ Create a http server in android device
 |    /image/delete   |   DELETE   | http://192.168.43.1:8080/image/delete?id=1&id=2 |
 |    /video/delete   |   DELETE   | http://192.168.43.1:8080/video/delete?id=1&id=2 |
 
-###### 接口参数
+##### 接口参数
 |    参数名     | 必选 | 类型  | 说明  |
 | ----------  | ------ | ---------- | ---------- |
 |  id |  是  | int | 图片或视频的id|
+
+##### 响应示例
+```
+{
+  "code": 0,
+  "data": "success",
+  "message": "删除成功"
+}
+```
