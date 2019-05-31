@@ -1,5 +1,5 @@
 # AndroidServer
-> 代码开启热点暂只支持5.0，其他版本未做测试，需要先手动打开热点
+> 代码开启热点暂只支持5.0，大部分Android手机的默认热点地址是`192.168.43.1`，其他版本未做测试，需要先手动打开热点
 
 ### 目前支持的功能
  - 首页默认显示手机最新的20张照片信息
@@ -8,8 +8,32 @@
  - 支持图片接口查询（自定义`pageIndex`和`pageSize`)
  - 支持视频接口查询（自定义`pageIndex`和`pageSize`)
  
-### 说明
-- 大部分Android手机的默认热点地址是`192.168.43.1`
+### Usage
+#### Start Server
+```
+AndroidHttpServer.getInstance().startServer(new OnConnectListener() {
+            @Override
+            public void onConnecting() {
+                Log.d(TAG, "onConnecting");
+            }
+
+            @Override
+            public void onSuccess(String ip) {
+                Log.d(TAG, "onSuccess, ip = " + ip);
+            }
+
+            @Override
+            public void onFailure(Exception e) {
+                Log.d(TAG, "Exception, e.cause = " + e.getCause());
+            }
+});
+```
+
+#### Stop Server
+```
+AndroidHttpServer.getInstance().stop();
+```
+
 
 ### 接口文档
 
