@@ -16,21 +16,13 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/btn_get_ap_ip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="获取热点地址"
-        app:layout_constraintTop_toBottomOf="@id/btn_open_server"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent" />
 
     <TextView
         android:id="@+id/tv_server_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="服务器ip地址："
-        app:layout_constraintTop_toBottomOf="@id/btn_get_ap_ip"
+        app:layout_constraintTop_toBottomOf="@id/btn_open_server"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
 

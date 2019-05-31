@@ -1,4 +1,4 @@
-package com.github.androidserver.inject;
+package com.github.androidserver.injection;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

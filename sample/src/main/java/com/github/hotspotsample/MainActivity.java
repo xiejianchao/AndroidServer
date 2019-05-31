@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
     }
 
     @OnClick(R.id.btn_open_server)
-    public void openApClick() {
+    public void startServerClick() {
         AndroidHttpServer.getInstance().startServer(new OnConnectListener() {
             @Override
             public void onConnecting() {
@@ -41,7 +41,14 @@ public class MainActivity extends AppCompatActivity implements EasyPermissions.P
 
             @Override
             public void onSuccess(String ip) {
-                mAddressTv.setText(ip);
+                StringBuilder sb = new StringBuilder();
+                sb.append(ip);
+                sb.append("\n");
+                sb.append("图片接口地址：" + ip + "/image?pageIndex=0&pageSize=20\n");
+                sb.append("视频接口地址：" + ip + "/video?pageIndex=0&pageSize=20\n");
+                sb.append("删除图片接口地址：" + ip + "/image/delete?id=111&id=222\n");
+                sb.append("删除图片接口地址：" + ip + "/video/delete?id=111&id=222\n");
+                mAddressTv.setText(sb.toString());
             }
 
             @Override

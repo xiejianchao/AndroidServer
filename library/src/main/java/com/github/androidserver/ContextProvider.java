@@ -6,8 +6,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.github.androidserver.inject.DaggerServerComponent;
-import com.github.androidserver.inject.ServerComponent;
+import com.github.androidserver.injection.DaggerServerComponent;
+import com.github.androidserver.injection.ServerComponent;
 
 import timber.log.Timber;
 

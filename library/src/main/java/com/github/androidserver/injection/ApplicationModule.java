@@ -1,4 +1,4 @@
-package com.github.androidserver.inject;
+package com.github.androidserver.injection;
 
 import android.content.Context;
 
