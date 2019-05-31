@@ -10,7 +10,7 @@
  
 ### Usage
 ------
-#### Start Server
+#### 1.Start Server
 ```
 AndroidHttpServer.getInstance().startServer(new OnConnectListener() {
             @Override
@@ -29,8 +29,9 @@ AndroidHttpServer.getInstance().startServer(new OnConnectListener() {
             }
 });
 ```
+#### 2.Connect to hotspot `PilotHotspot`
 
-#### Stop Server
+#### 3.Stop Server
 ```
 AndroidHttpServer.getInstance().stop();
 ```
