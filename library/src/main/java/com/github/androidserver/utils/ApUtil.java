@@ -13,6 +13,13 @@ import static android.content.Context.WIFI_SERVICE;
 
 public class ApUtil {
 
+    /**
+     * http://www.demodashi.com/demo/13907.html
+     * @param context
+     * @param ssid
+     * @param password
+     * @return
+     */
     public static boolean openAp(Context context, String ssid, String password) {
         WifiManager wifimanager = (WifiManager) context.getApplicationContext().getSystemService(WIFI_SERVICE);
         if (wifimanager == null) {
