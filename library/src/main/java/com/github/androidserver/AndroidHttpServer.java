@@ -106,7 +106,7 @@ public class AndroidHttpServer {
                 }
                 sendServerIp();
             } catch (IOException e) {
-                e.printStackTrace();
+                Timber.e(e);
                 sendErrorMsg(e);
             }
         }

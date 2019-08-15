@@ -54,7 +54,7 @@ public class Constants {
         public static final String VIDEO = "video";
         public static final String DEFAULT_HOTSPOT_IP = "192.168.43.1";
         public static final String WIFI_HOTSPOT_NAME = "PilotHotspot";
-        public static final String WIFI_HOTSPOT_PWD = "12345678";
+        public static final String WIFI_HOTSPOT_PWD = "123456789";
         public static final String SUCCESS = "success";
     }
 }
