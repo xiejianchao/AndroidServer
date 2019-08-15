@@ -29,7 +29,7 @@ AndroidHttpServer.getInstance().startServer(new OnConnectListener() {
             }
 });
 ```
-#### 2.Connect to hotspot `PilotHotspot`
+#### 2.Connect to wifi hotspot `PilotHotspot`
 
 #### 3.Stop Server
 ```
